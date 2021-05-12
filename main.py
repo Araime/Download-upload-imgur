@@ -34,10 +34,10 @@ if __name__ == '__main__':
     if not os.path.exists(directory):
         os.makedirs(directory)
 
-    try:
-        get_img(url, filename, directory)
-    except requests.exceptions.HTTPError as error:
-        exit(f'Введена неправильная ссылка:\n{error}')
+    # try:
+    #     get_img(url, filename, directory)
+    # except requests.exceptions.HTTPError as error:
+    #     exit(f'Введена неправильная ссылка:\n{error}')
 
     # response_2 = requests.get(url_2)
     # response_2.raise_for_status()
