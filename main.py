@@ -26,7 +26,7 @@ def fetch_spacex_last_launch(url_2, directory):
 
 
 if __name__ == '__main__':
-    directory = os.getcwd() + 'images/'
+    directory = os.getcwd() + '/images/'
     url = 'https://upload.wikimedia.org/wikipedia/commons/3/3f/HST-SM4.jpeg'
     url_2 = 'https://api.spacexdata.com/v3/launches/13'
     filename = 'hubble.jpeg'
