@@ -11,7 +11,7 @@ def get_img(url, filename, directory):
     return print('Ok.')
 
 
-def get_launch_img(url_2, directory):
+def fetch_spacex_last_launch(url_2, directory):
     response_2 = requests.get(url_2)
     response_2.raise_for_status()
     launch = response_2.json()
@@ -47,6 +47,6 @@ if __name__ == '__main__':
     # pprint(type(launch))
 
     try:
-        get_launch_img(url_2, directory)
+        fetch_spacex_last_launch(url_2, directory)
     except requests.exceptions.HTTPError as error:
         exit(f'Введена неправильная ссылка:\n{error}')
