@@ -16,11 +16,12 @@ def get_launch_img(url_2, directory):
     response_2.raise_for_status()
     launch = response_2.json()
     launch_images = launch['links']['flickr_images']
-    i = 1
-    for image in launch_images:
-        with open(directory + f'spacex{i}.jpg', 'wb') as file:
-            file.write(response_2.content)
-        i += 1
+    for image_number, image in enumerate(launch_images):
+        image_url = image
+        response_3 = requests.get(image_url)
+        response_3.raise_for_status()
+        with open(directory + f'spacex{image_number + 1}.jpg', 'wb') as file:
+            file.write(response_3.content)
     return print('Ok.')
 
 
@@ -38,12 +39,14 @@ if __name__ == '__main__':
     except requests.exceptions.HTTPError as error:
         exit(f'Введена неправильная ссылка:\n{error}')
 
-    response_2 = requests.get(url_2)
-    response_2.raise_for_status()
-    launch = response_2.json()
-    launch_images = launch['links']['flickr_images']
+    # response_2 = requests.get(url_2)
+    # response_2.raise_for_status()
+    # launch = response_2.json()
+    # launch_images = launch['links']['flickr_images']
+    #
+    # pprint(type(launch))
 
-    # try:
-    #     get_launch_img(url_2, directory)
-    # except requests.exceptions.HTTPError as error:
-    #     exit(f'Введена неправильная ссылка:\n{error}')
+    try:
+        get_launch_img(url_2, directory)
+    except requests.exceptions.HTTPError as error:
+        exit(f'Введена неправильная ссылка:\n{error}')
