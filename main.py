@@ -1,5 +1,6 @@
 import os
 import requests
+import argparse
 from urllib.parse import urlsplit, unquote_plus
 
 
@@ -34,7 +35,13 @@ if __name__ == '__main__':
     if not os.path.exists(directory):
         os.makedirs(directory)
 
-    image_id = 1
+    parser = argparse.ArgumentParser(description='Программа для скачивания снимков, сделанных'
+                                                 ' космическим телескопом Hubble')
+    parser.add_argument('image_id', help='id изоображения для скачивания')
+    args = parser.parse_args()
+
+    image_id = args.image_id
+    print(image_id)
     ready_url = f'http://hubblesite.org/api/v3/image/{image_id}'
     image_link = get_image_link(ready_url)
     extension = get_file_extension(image_link)
