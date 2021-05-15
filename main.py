@@ -28,7 +28,7 @@ if __name__ == '__main__':
     if not os.path.exists(directory):
         os.makedirs(directory)
 
-    hubble_url = 'http://hubblesite.org/api/v3/images?page=all&collection_name=spacecraft'
+    hubble_url = 'http://hubblesite.org/api/v3/images/stsci_gallery'
     spacex_url = 'https://api.spacexdata.com/v3/launches/13'
 
     response = requests.get(hubble_url, verify=False)
@@ -53,5 +53,5 @@ if __name__ == '__main__':
     #     exit(f'Введена неправильная ссылка:\n{error}')
 
     # image_id = 4522
-    # ready_url = f'http://hubblesite.org/api/v3/image/{image_id}'
+    # ready_url = f'http://hubblesite.org/api/v3/image/4827'
     # extension = get_file_extension(ready_url)
