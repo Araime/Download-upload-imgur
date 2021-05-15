@@ -1,3 +1,6 @@
+import requests
+
+
 def fetch_spacex_last_launch(url_2, directory):
     response_2 = requests.get(url_2)
     response_2.raise_for_status()
