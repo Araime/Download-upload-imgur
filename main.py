@@ -12,8 +12,8 @@ def get_image_link(ready_url):
     return link_for_downloading
 
 
-def get_file_extension(ready_url):
-    segmented_url = urlsplit(ready_url)
+def get_file_extension(image_link):
+    segmented_url = urlsplit(image_link)
     file_path = segmented_url.path
     unquote_file_path = unquote_plus(string=file_path, encoding='utf-8', errors='Replace')
     split_file_and_path = os.path.split(unquote_file_path)
@@ -41,7 +41,7 @@ if __name__ == '__main__':
 
     image_link = get_image_link(ready_url)
 
-    extension = get_file_extension(ready_url)
+    extension = get_file_extension(image_link)
 
     try:
         download_image(image_link, directory, image_id, extension)
