@@ -12,4 +12,5 @@ def fetch_spacex_last_launch(spacex_url, directory):
         response_3.raise_for_status()
         with open(directory + f'spacex{image_number + 1}.jpg', 'wb') as file:
             file.write(response_3.content)
-    return print('Ok.')
+            print('Image downloaded')
+    return print('Process completed')
