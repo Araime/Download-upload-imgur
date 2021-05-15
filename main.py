@@ -1,15 +1,8 @@
 import os
 import requests
-import argparse
+from fetch_spacex import fetch_spacex_last_launch
+from pprint import pprint
 from urllib.parse import urlsplit, unquote_plus
-
-
-def get_image_link(ready_url):
-    response = requests.get(ready_url)
-    response.raise_for_status()
-    hubble_response = response.json()
-    link_for_downloading = hubble_response['image_files'][-1]['file_url']
-    return link_for_downloading
 
 
 def get_file_extension(image_link):
@@ -21,13 +14,13 @@ def get_file_extension(image_link):
     return split_file_and_extension[1]
 
 
-def download_image(image_link, directory, image_id, extension):
-    url = f'http:{image_link}'
+def fetch_hubble(image_link, directory, image_id, extension):
+    url = f'https:{image_link}'
     response = requests.get(url, verify=False)
     response.raise_for_status()
     with open(directory + f'{image_id}{extension}', 'wb') as file:
         file.write(response.content)
-    return print('Ok.')
+    return print(f'Image with id {image_id} downloaded.')
 
 
 if __name__ == '__main__':
@@ -35,18 +28,30 @@ if __name__ == '__main__':
     if not os.path.exists(directory):
         os.makedirs(directory)
 
-    parser = argparse.ArgumentParser(description='Программа для скачивания снимков, сделанных'
-                                                 ' космическим телескопом Hubble')
-    parser.add_argument('image_id', help='id изоображения для скачивания')
-    args = parser.parse_args()
+    hubble_url = 'http://hubblesite.org/api/v3/images?page=all&collection_name=spacecraft'
+    spacex_url = 'https://api.spacexdata.com/v3/launches/13'
 
-    image_id = args.image_id
-    print(image_id)
-    ready_url = f'http://hubblesite.org/api/v3/image/{image_id}'
-    image_link = get_image_link(ready_url)
-    extension = get_file_extension(image_link)
+    response = requests.get(hubble_url, verify=False)
+    response.raise_for_status()
+    image_collection_link = response.json()
+    for image in image_collection_link:
+        image_id = image['id']
+        url = f'http://hubblesite.org/api/v3/image/{image_id}'
+        response = requests.get(url)
+        response.raise_for_status()
+        hubble_response = response.json()
+        image_link = hubble_response['image_files'][-1]['file_url']
+        extension = get_file_extension(image_link)
+        try:
+            fetch_hubble(image_link, directory, image_id, extension)
+        except requests.exceptions.HTTPError as error:
+            exit(f'Введена неправильная ссылка:\n{error}')
 
-    try:
-        download_image(image_link, directory, image_id, extension)
-    except requests.exceptions.HTTPError as error:
-        exit(f'Введена неправильная ссылка:\n{error}')
+    # try:
+    #     fetch_spacex_last_launch(spacex_url, directory)
+    # except requests.exceptions.HTTPError as error:
+    #     exit(f'Введена неправильная ссылка:\n{error}')
+
+    # image_id = 4522
+    # ready_url = f'http://hubblesite.org/api/v3/image/{image_id}'
+    # extension = get_file_extension(ready_url)
