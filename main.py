@@ -1,7 +1,7 @@
 import os
 import requests
+from fetch_hubble import fetch_hubble
 from fetch_spacex import fetch_spacex_last_launch
-from pprint import pprint
 from urllib.parse import urlsplit, unquote_plus
 
 
@@ -12,15 +12,6 @@ def get_file_extension(image_link):
     split_file_and_path = os.path.split(unquote_file_path)
     split_file_and_extension = os.path.splitext(split_file_and_path[1])
     return split_file_and_extension[1]
-
-
-def fetch_hubble(image_link, directory, image_id, extension):
-    url = f'https:{image_link}'
-    response = requests.get(url, verify=False)
-    response.raise_for_status()
-    with open(directory + f'{image_id}{extension}', 'wb') as file:
-        file.write(response.content)
-    return print(f'Image with id {image_id} downloaded.')
 
 
 if __name__ == '__main__':
@@ -51,7 +42,3 @@ if __name__ == '__main__':
     #     fetch_spacex_last_launch(spacex_url, directory)
     # except requests.exceptions.HTTPError as error:
     #     exit(f'Введена неправильная ссылка:\n{error}')
-
-    # image_id = 4522
-    # ready_url = f'http://hubblesite.org/api/v3/image/4827'
-    # extension = get_file_extension(ready_url)
