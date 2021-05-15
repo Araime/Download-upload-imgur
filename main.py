@@ -1,52 +1,49 @@
 import os
 import requests
 from pprint import pprint
+from urllib.parse import urlsplit, unquote_plus
 
 
-def get_img(url, filename, directory):
-    response = requests.get(url)
+def get_image_link(ready_url):
+    response_4 = requests.get(ready_url)
+    response_4.raise_for_status()
+    hubble_response = response_4.json()
+    link_for_downloading = hubble_response['image_files'][-1]['file_url']
+    return link_for_downloading
+
+
+def get_file_extension(ready_url):
+    segmented_url = urlsplit(ready_url)
+    file_path = segmented_url.path
+    unquote_file_path = unquote_plus(string=file_path, encoding='utf-8', errors='Replace')
+    split_file_and_path = os.path.split(unquote_file_path)
+    split_file_and_extension = os.path.splitext(split_file_and_path[1])
+    return split_file_and_extension[1]
+
+
+def download_image(image_link, directory, image_id, extension):
+    url = f'http:{image_link}'
+    response = requests.get(url, verify=False)
     response.raise_for_status()
-    with open(directory + filename, 'wb') as file:
+    with open(directory + f'{image_id}{extension}', 'wb') as file:
         file.write(response.content)
-    return print('Ok.')
-
-
-def fetch_spacex_last_launch(url_2, directory):
-    response_2 = requests.get(url_2)
-    response_2.raise_for_status()
-    launch = response_2.json()
-    launch_images = launch['links']['flickr_images']
-    for image_number, image in enumerate(launch_images):
-        image_url = image
-        response_3 = requests.get(image_url)
-        response_3.raise_for_status()
-        with open(directory + f'spacex{image_number + 1}.jpg', 'wb') as file:
-            file.write(response_3.content)
     return print('Ok.')
 
 
 if __name__ == '__main__':
     directory = os.getcwd() + '/images/'
-    url = 'https://upload.wikimedia.org/wikipedia/commons/3/3f/HST-SM4.jpeg'
-    url_2 = 'https://api.spacexdata.com/v3/launches/13'
-    filename = 'hubble.jpeg'
 
     if not os.path.exists(directory):
         os.makedirs(directory)
 
-    # try:
-    #     get_img(url, filename, directory)
-    # except requests.exceptions.HTTPError as error:
-    #     exit(f'Введена неправильная ссылка:\n{error}')
+    image_id = 1
+    ready_url = f'http://hubblesite.org/api/v3/image/{image_id}'
 
-    # response_2 = requests.get(url_2)
-    # response_2.raise_for_status()
-    # launch = response_2.json()
-    # launch_images = launch['links']['flickr_images']
-    #
-    # pprint(type(launch))
+    image_link = get_image_link(ready_url)
+
+    extension = get_file_extension(ready_url)
 
     try:
-        fetch_spacex_last_launch(url_2, directory)
+        download_image(image_link, directory, image_id, extension)
     except requests.exceptions.HTTPError as error:
         exit(f'Введена неправильная ссылка:\n{error}')
