@@ -1,6 +1,5 @@
 import os
 import requests
-from pprint import pprint
 from urllib.parse import urlsplit, unquote_plus
 
 
@@ -32,15 +31,12 @@ def download_image(image_link, directory, image_id, extension):
 
 if __name__ == '__main__':
     directory = os.getcwd() + '/images/'
-
     if not os.path.exists(directory):
         os.makedirs(directory)
 
     image_id = 1
     ready_url = f'http://hubblesite.org/api/v3/image/{image_id}'
-
     image_link = get_image_link(ready_url)
-
     extension = get_file_extension(image_link)
 
     try:
