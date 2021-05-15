@@ -4,9 +4,9 @@ from urllib.parse import urlsplit, unquote_plus
 
 
 def get_image_link(ready_url):
-    response_4 = requests.get(ready_url)
-    response_4.raise_for_status()
-    hubble_response = response_4.json()
+    response = requests.get(ready_url)
+    response.raise_for_status()
+    hubble_response = response.json()
     link_for_downloading = hubble_response['image_files'][-1]['file_url']
     return link_for_downloading
 
