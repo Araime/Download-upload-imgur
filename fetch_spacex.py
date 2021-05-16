@@ -1,3 +1,4 @@
+import os
 import requests
 
 
@@ -14,3 +15,11 @@ def fetch_spacex_last_launch(spacex_url, directory):
             file.write(response_3.content)
             print(f'Image spacex{image_number + 1}.jpg downloaded')
     return print('Process completed')
+
+
+if __name__ == '__main__':
+    directory = os.getcwd() + '/images/'
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+    fetch_spacex_last_launch('https://api.spacexdata.com/v3/launches/13', directory)
