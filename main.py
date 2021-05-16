@@ -1,5 +1,6 @@
 import os
 import requests
+from PIL import image
 from fetch_hubble import fetch_hubble
 from fetch_spacex import fetch_spacex_last_launch
 from urllib.parse import urlsplit, unquote_plus
