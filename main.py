@@ -44,10 +44,10 @@ if __name__ == '__main__':
     # except requests.exceptions.HTTPError as error:
     #     exit(f'Введена неправильная ссылка:\n{error}')
 
-    images_list = sorted(os.listdir('Images/'))
-
-    for img in images_list:
-        if img.endswith(('.jpg', '.png')):
-            image = Image.open(f'images/{img}')
-            image.thumbnail((1080, 1080))
-            image.save(f'images/new {img}', format='JPEG')
+    # images_list = sorted(os.listdir('Images/'))
+    #
+    # for img in images_list:
+    #     if img.endswith(('.jpg', '.png')):
+    #         image = Image.open(f'images/{img}')
+    #         image.thumbnail((1080, 1080))
+    #         image.save(f'images/new {img}', format='JPEG')
