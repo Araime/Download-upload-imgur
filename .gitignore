@@ -1,5 +1,6 @@
 /venv/
 /.idea/
+.env
 /images/1201.jpg
 /images/10.jpg
 /images/500.tif
