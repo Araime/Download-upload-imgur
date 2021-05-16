@@ -14,10 +14,10 @@ def get_file_extension(image_link):
 
 def fetch_hubble(image_link, directory, image_id, extension):
     url = f'https:{image_link}'
-    response = requests.get(url, verify=False)
-    response.raise_for_status()
+    response_image = requests.get(url, verify=False)
+    response_image.raise_for_status()
     with open(directory + f'{image_id}{extension}', 'wb') as file:
-        file.write(response.content)
+        file.write(response_image.content)
     return print(f'Image with id {image_id} downloaded.')
 
 
@@ -26,15 +26,15 @@ if __name__ == '__main__':
     if not os.path.exists(directory):
         os.makedirs(directory)
 
-    hubble_url = 'http://hubblesite.org/api/v3/images/stsci_gallery'
+    hubble_url = 'https://hubblesite.org/api/v3/images/stsci_gallery'
 
     response = requests.get(hubble_url, verify=False)
     response.raise_for_status()
     image_collection_link = response.json()
     for image in image_collection_link:
         image_id = image['id']
-        url = f'http://hubblesite.org/api/v3/image/{image_id}'
-        response = requests.get(url)
+        ready_url = f'https://hubblesite.org/api/v3/image/{image_id}'
+        response = requests.get(ready_url)
         response.raise_for_status()
         hubble_response = response.json()
         image_link = hubble_response['image_files'][-1]['file_url']
