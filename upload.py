@@ -26,11 +26,11 @@ def authenticate():
 
 def upload_image(client, image_path, config):
 	print("Uploading image... ")
-	image_status = client.upload_from_path(image_path, config=config, anon=False)
+	image = client.upload_from_path(image_path, config=config, anon=False)
 	print("Done")
 	print()
 
-	return image_status
+	return image
 
 
 if __name__ == "__main__":
@@ -50,7 +50,7 @@ if __name__ == "__main__":
 				'title': split_image_name,
 				'description': 'Photo from internet {0}'.format(datetime.now())
 			}
-			image_response = upload_image(client, image_path, config)
+			image = upload_image(client, image_path, config)
 
 			print("Image was posted!")
-			print("You can find it here: {0}".format(image_response['link']))
+			print("You can find it here: {0}".format(image['link']))
