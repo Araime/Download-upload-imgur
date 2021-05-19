@@ -54,4 +54,3 @@ if __name__ == "__main__":
 
 			print("Image was posted!")
 			print("You can find it here: {0}".format(image_response['link']))
-
