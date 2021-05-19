@@ -3,7 +3,7 @@ from PIL import Image
 
 
 if __name__ == '__main__':
-    images_list = sorted(os.listdir('Images/'))
+    images_list = sorted(os.listdir('images/'))
     for img in images_list:
         if img.endswith(('.jpg', '.png')):
             split_image_name = os.path.splitext(img)
