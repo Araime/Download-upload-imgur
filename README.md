@@ -58,7 +58,7 @@ pip install -r requirements.txt
 #### Создание приложения
 
 После регистрации необходимо пройти по [ссылке](https://api.imgur.com/oauth2/addclient) 
-и создать приложение. В поле `Authorization callback URL` напишите `http://localhost`  
+и создать приложение. В поле `Authorization callback URL` напишите `http://localhost`.  
 <a href="https://ibb.co/b6MbmrL"><img src="https://i.ibb.co/PrvDj54/image.png" alt="image" border="0"></a>
 
 Вы получите client-id и client-secret.  
@@ -71,6 +71,33 @@ CLIENT_SECRET=Ваш client-secret
 ```
 
 ### Использование
+
+#### Spacex API
+
+Чтобы скачать фотографии с запуска Spacex, необходимо запустить файл
+fetch_spacex.py и в качестве аргумента передать ссылку на запуск. Подробная
+информация по ссылкам [здесь](https://documenter.getpostman.com/view/2025350/RWaEzAiG#bc65ba60-decf-4289-bb04-4ca9df01b9c1)
+Не у всех запусков есть фотографии, по этому нужно будет попробовать несколько
+запросов.  
+Пример с фотографиями:
+
+```
+python fetch_spacex.py https://api.spacexdata.com/v3/launches/13
+```
+
+#### Hubble API
+
+Скрипт fetch_hubble.py настроен на скачивание коллекций изображений. Красивые 
+фотографии Hubble хранятся в коллекциях. Вот некоторые из них: “holiday_cards”, 
+“wallpaper”, “spacecraft”, “news”, “printshop”, “stsci_gallery”. При запуске 
+скрипта необходимо передать ссылку коллекцию в качестве аргумента.  
+Пример скачивания коллекции:
+
+```
+python fetch_hubble.py https://hubblesite.org/api/v3/images/stsci_gallery
+```
+
+Подробнее об [Hubble API](http://hubblesite.org/api/documentation).
 
 ### Цель проекта
 
