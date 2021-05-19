@@ -1,4 +1,5 @@
 import os
+import argparse
 import requests
 from urllib.parse import urlsplit, unquote_plus
 
@@ -22,11 +23,16 @@ def fetch_hubble(image_link, directory, image_id, extension):
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Программа принимает ссылку на коллекцию фотографий'
+                                                 ' в качестве аргумента')
+    parser.add_argument('link', help='Ссылка на коллекцию фотографий Hubble, например'
+                                     ' https://hubblesite.org/api/v3/images/stsci_gallery')
+    args = parser.parse_args()
+    hubble_url = args.link
+
     directory = os.getcwd() + '/images/'
     if not os.path.exists(directory):
         os.makedirs(directory)
-
-    hubble_url = 'https://hubblesite.org/api/v3/images/stsci_gallery'
 
     response = requests.get(hubble_url, verify=False)
     response.raise_for_status()
