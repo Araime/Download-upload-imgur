@@ -1,6 +1,8 @@
-# Что это
+# Download-upload-imgur
 
-Консольное приложение
+Консольное приложение для загрузки изображений с API веб-сервисов [Spacex](https://documenter.getpostman.com/view/2025350/RWaEzAiG#bc65ba60-decf-4289-bb04-4ca9df01b9c1) 
+и [Hubble](http://hubblesite.org/api/documentation), их последующей обработки 
+и загрузки на сервис [imgur](https://imgur.com/).
 
 ### Как установить?
 
