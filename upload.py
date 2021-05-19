@@ -18,21 +18,30 @@ def upload_image(client, image_path, config):
 if __name__ == "__main__":
 	client = authenticate()
 	album = 'Space-themed photos'
+	image_path = 'images\\3861.jpg'
 
-	directory = os.getcwd() + '/images/'
-	os.chdir(directory)
+	config = {
+		'album': album,
+		'name': 'name',
+		'description': 'Photo from internet {0}'.format(datetime.now())
+	}
+	image = upload_image(client, image_path, config)
 
-	for image_name in listdir('images'):
-		if image_name.endswith(('.jpg', '.png')):
-			name_for_split = os.path.splitext(image_name)
-			split_image_name = name_for_split[0]
-			image_path = image_name
-			config = {
-				'album': album,
-				'name': split_image_name,
-				'description': 'Photo from internet {0}'.format(datetime.now())
-			}
-			image = upload_image(client, image_path, config)
+	print("Image was posted!")
+	print("You can find it here: {0}".format(image['link']))
 
-			print("Image was posted!")
-			print("You can find it here: {0}".format(image['link']))
+	# for image_name in listdir('.'):
+	# 	if image_name.endswith(('.jpg', '.png')):
+	# 		name_for_split = os.path.splitext(image_name)
+	# 		split_image_name = name_for_split[0]
+	# 		image_path = image_name
+	# 		print(image_path)
+			# config = {
+			# 	'album': album,
+			# 	'name': split_image_name,
+			# 	'description': 'Photo from internet {0}'.format(datetime.now())
+			# }
+			# image = upload_image(client, image_path, config)
+			#
+			# print("Image was posted!")
+			# print("You can find it here: {0}".format(image['link']))
