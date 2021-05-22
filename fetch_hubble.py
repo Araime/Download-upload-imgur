@@ -19,7 +19,6 @@ def fetch_hubble(image_link, directory, image_id, extension):
     response_image.raise_for_status()
     with open(directory + f'{image_id}{extension}', 'wb') as file:
         file.write(response_image.content)
-    return print(f'Image with id {image_id} downloaded.')
 
 
 if __name__ == '__main__':
@@ -46,5 +45,3 @@ if __name__ == '__main__':
         image_link = hubble_response['image_files'][-1]['file_url']
         extension = get_file_extension(image_link)
         fetch_hubble(image_link, directory, image_id, extension)
-
-    print('Process completed')
