@@ -5,12 +5,12 @@ from urllib.parse import urlsplit, unquote_plus
 
 
 def get_file_extension(image_link):
-    segmented_url = urlsplit(image_link)
-    file_path = segmented_url.path
+    splitted_url = urlsplit(image_link)
+    file_path = splitted_url.path
     unquote_file_path = unquote_plus(string=file_path, encoding='utf-8', errors='Replace')
-    split_file_and_path = os.path.split(unquote_file_path)
-    split_file_and_extension = os.path.splitext(split_file_and_path[1])
-    return split_file_and_extension[1]
+    separated_path_from_file = os.path.split(unquote_file_path)
+    separated_file_and_extension = os.path.splitext(separated_path_from_file[1])
+    return separated_file_and_extension[1]
 
 
 def fetch_hubble(image_link, directory, image_id, extension):
@@ -36,8 +36,8 @@ if __name__ == '__main__':
 
     response = requests.get(hubble_url, verify=False)
     response.raise_for_status()
-    image_collection_link = response.json()
-    for image in image_collection_link:
+    collection = response.json()
+    for image in collection:
         image_id = image['id']
         ready_url = f'https://hubblesite.org/api/v3/image/{image_id}'
         response = requests.get(ready_url)
