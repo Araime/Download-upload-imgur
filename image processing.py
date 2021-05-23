@@ -9,13 +9,10 @@ if __name__ == '__main__':
     for img in images_list:
         if img.endswith(('.jpg', '.png')):
             split_filename = os.path.splitext(img)
-            image_name = f'{split_filename[0]}.jpg'
-            old_image_path = os.path.join(dirname, img)
-            new_image_path = os.path.join(dirname, image_name)
-            image = Image.open(old_image_path)
+            filename, extension = split_filename
+            image = Image.open(os.path.join(dirname, img))
             image.thumbnail((1080, 1080))
-            image.save(new_image_path, format='JPEG')
+            image.save(f'{os.path.join(dirname, filename)}.jpg', format='JPEG')
     for img in images_list:
         if img.endswith('.png'):
-            image_path = os.path.join(dirname, img)
-            os.remove(image_path)
+            os.remove(os.path.join(dirname, img))
