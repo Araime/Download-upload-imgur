@@ -17,7 +17,7 @@ def fetch_hubble_images(image_link, directory, image_id, extension):
     url = f'https:{image_link}'
     response_image = requests.get(url, verify=False)
     response_image.raise_for_status()
-    with open(directory + f'{image_id}{extension}', 'wb') as file:
+    with open(f'{directory}{image_id}{extension}', 'wb') as file:
         file.write(response_image.content)
 
 
@@ -29,7 +29,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     hubble_url = args.link
 
-    directory = os.getcwd() + '/images/'
+    directory = f'{os.getcwd()}/images/'
     if not os.path.exists(directory):
         os.makedirs(directory)
 

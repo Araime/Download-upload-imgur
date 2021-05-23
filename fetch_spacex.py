@@ -12,7 +12,7 @@ def fetch_spacex_launch(launch_number, directory):
     for image_number, image_url in enumerate(photo_from_launch):
         response = requests.get(image_url)
         response.raise_for_status()
-        with open(directory + f'spacex{image_number + 1}.jpg', 'wb') as file:
+        with open(f'{directory}spacex{image_number + 1}.jpg', 'wb') as file:
             file.write(response.content)
             print(f'Image spacex{image_number + 1}.jpg downloaded')
 
@@ -24,7 +24,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     launch_number = args.launch_number
 
-    directory = os.getcwd() + '/images/'
+    directory = f'{os.getcwd()}/images/'
     if not os.path.exists(directory):
         os.makedirs(directory)
 

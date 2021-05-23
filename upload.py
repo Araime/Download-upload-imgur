@@ -10,23 +10,23 @@ def authenticate():
     client = ImgurClient(client_id, client_secret)
 
     authorization_url = client.get_auth_url('pin')
-    print('Go to the following URL: {0}'.format(authorization_url))
+    print(f'Go to the following URL: {authorization_url}')
 
     pin = input('Enter pin code: ')
     credentials = client.authorize(pin, 'pin')
     client.set_user_auth(credentials['access_token'], credentials['refresh_token'])
 
-    print("Authentication successful! Here are the details:")
-    print("   Access token:  {0}".format(credentials['access_token']))
-    print("   Refresh token: {0}".format(credentials['refresh_token']))
+    print('Authentication successful! Here are the details:')
+    print(f'   Access token:  {credentials["access_token"]}')
+    print(f'   Refresh token: {credentials["refresh_token"]}')
 
     return client
 
 
 def upload_image(client, image_path, config):
-    print("Uploading image... ")
+    print('Uploading image... ')
     image = client.upload_from_path(image_path, config=config, anon=False)
-    print("Done")
+    print('Done')
     print()
 
     return image
@@ -52,5 +52,5 @@ if __name__ == '__main__':
                 'description': 'Photo from internet {0}'.format(datetime.now())
             }
             image = upload_image(client, image_path, config)
-            print("Image was posted!")
-            print("You can find it here: {0}".format(image['link']))
+            print('Image was posted!')
+            print(f'You can find it here: {image["link"]}')
