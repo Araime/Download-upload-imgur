@@ -22,12 +22,12 @@ def fetch_hubble_images(image_link, directory, image_id, extension):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Программа принимает ссылку на коллекцию фотографий'
+    parser = argparse.ArgumentParser(description='Программа принимает название коллекции фотографий'
                                                  ' в качестве аргумента')
-    parser.add_argument('link', help='Ссылка на коллекцию фотографий Hubble, например'
-                                     ' https://hubblesite.org/api/v3/images/stsci_gallery')
+    parser.add_argument('collection_name', help='Название коллекции фотографий Hubble', nargs='?',
+                        default='stsci_gallery')
     args = parser.parse_args()
-    hubble_url = args.link
+    hubble_url = f'https://hubblesite.org/api/v3/images/{args.collection_name}'
 
     directory = f'{os.getcwd()}/images/'
     os.makedirs(directory, exist_ok=True)
