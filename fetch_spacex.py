@@ -25,7 +25,6 @@ if __name__ == '__main__':
     launch_number = args.launch_number
 
     directory = f'{os.getcwd()}/images/'
-    if not os.path.exists(directory):
-        os.makedirs(directory)
+    os.makedirs(directory, exist_ok=True)
 
     fetch_spacex_launch(launch_number, directory)
