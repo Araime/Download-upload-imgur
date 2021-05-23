@@ -79,7 +79,7 @@ CLIENT_SECRET=Ваш client-secret
 #### Spacex API
 
 Чтобы скачать фотографии с запуска Spacex, необходимо запустить скрипт 
-fetch_spacex.py и в качестве аргумента передать ссылку на запуск. Скрипт 
+fetch_spacex.py и в качестве аргумента передать номер запуска. Скрипт 
 fetch_spacex.py проверяет, есть ли в репозитории папка images, если такой 
 папки нет, создаёт её. Все фотографии сохраняются в папку images.  
 Не у всех запусков есть фотографии, по этому нужно будет попробовать несколько
@@ -87,7 +87,7 @@ fetch_spacex.py проверяет, есть ли в репозитории па
 Пример с фотографиями:
 
 ```
-python fetch_spacex.py https://api.spacexdata.com/v3/launches/13
+python fetch_spacex.py 13
 ```
 
 Подробнее об [Spacex API](https://documenter.getpostman.com/view/2025350/RWaEzAiG#bc65ba60-decf-4289-bb04-4ca9df01b9c1).
