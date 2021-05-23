@@ -6,11 +6,11 @@ from urllib.parse import urlsplit, unquote_plus
 
 def get_file_extension(image_link):
     splitted_url = urlsplit(image_link)
-    file_path = splitted_url.path
-    unquote_file_path = unquote_plus(string=file_path, encoding='utf-8', errors='Replace')
-    separated_path_from_file = os.path.split(unquote_file_path)
-    separated_file_and_extension = os.path.splitext(separated_path_from_file[1])
-    return separated_file_and_extension[1]
+    absolute_file_path = splitted_url.path
+    unquote_file_path = unquote_plus(string=absolute_file_path, encoding='utf-8', errors='Replace')
+    file_path, image_file = os.path.split(unquote_file_path)
+    filename, file_extension = os.path.splitext(image_file)
+    return file_extension
 
 
 def fetch_hubble_images(image_link, directory, image_id, extension):
