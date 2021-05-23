@@ -30,8 +30,7 @@ if __name__ == '__main__':
     hubble_url = args.link
 
     directory = f'{os.getcwd()}/images/'
-    if not os.path.exists(directory):
-        os.makedirs(directory)
+    os.makedirs(directory, exist_ok=True)
 
     response = requests.get(hubble_url, verify=False)
     response.raise_for_status()
