@@ -3,7 +3,7 @@ import argparse
 import requests
 
 
-def fetch_spacex_last_launch(spacex_url, directory):
+def fetch_spacex_launch(spacex_url, directory):
     response = requests.get(spacex_url)
     response.raise_for_status()
     launch = response.json()
@@ -28,4 +28,4 @@ if __name__ == '__main__':
     if not os.path.exists(directory):
         os.makedirs(directory)
 
-    fetch_spacex_last_launch(spacex_url, directory)
+    fetch_spacex_launch(spacex_url, directory)

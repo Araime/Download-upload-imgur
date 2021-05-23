@@ -44,4 +44,4 @@ if __name__ == '__main__':
         hubble_response = response.json()
         image_link = hubble_response['image_files'][-1]['file_url']
         extension = get_file_extension(image_link)
-        fetch_hubble(image_link, directory, image_id, extension)
+        fetch_hubble_images(image_link, directory, image_id, extension)
