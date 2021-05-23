@@ -18,9 +18,9 @@ def fetch_spacex_launch(launch_number, directory):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Программа принимает ссылку на номер запуска'
-                                                 ' в качестве аргумента и скачивает сотографии')
-    parser.add_argument('launch_number', help='Номер запуска Spacex, например 13')
+    parser = argparse.ArgumentParser(description='Программа принимает номер запуска в качестве аргумента')
+    parser.add_argument('launch_number', help='Номер запуска Spacex, например 13',
+                        nargs='?', default='13')
     args = parser.parse_args()
     launch_number = args.launch_number
 
