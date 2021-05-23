@@ -8,8 +8,7 @@ def fetch_spacex_last_launch(spacex_url, directory):
     response.raise_for_status()
     launch = response.json()
     photo_from_launch = launch['links']['flickr_images']
-    for image_number, image in enumerate(photo_from_launch):
-        image_url = image
+    for image_number, image_url in enumerate(photo_from_launch):
         response = requests.get(image_url)
         response.raise_for_status()
         with open(directory + f'spacex{image_number + 1}.jpg', 'wb') as file:
