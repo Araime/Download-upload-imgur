@@ -42,12 +42,12 @@ if __name__ == '__main__':
     for image in os.listdir(dirname):
         if image.endswith(('.jpg', '.png')):
             name_for_split = os.path.splitext(image)
-            split_image_name = name_for_split[0]
+            filename, extension = name_for_split
             image_path = os.path.join(dirname, image)
             config = {
                 'album': album,
-                'name': split_image_name,
-                'title': split_image_name,
+                'name': filename,
+                'title': filename,
                 'description': 'Photo from internet {0}'.format(datetime.now())
             }
             image = upload_image(client, image_path, config)
