@@ -44,7 +44,6 @@ if __name__ == '__main__':
             name_for_split = os.path.splitext(image)
             split_image_name = name_for_split[0]
             image_path = os.path.join(dirname, image)
-            print(image_path)
             config = {
                 'album': album,
                 'name': split_image_name,
