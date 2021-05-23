@@ -3,8 +3,6 @@ import os
 from dotenv import load_dotenv
 from imgurpython import ImgurClient
 
-load_dotenv()
-
 
 def authenticate():
     client_id = os.getenv('CLIENT_ID')
@@ -35,6 +33,8 @@ def upload_image(client, image_path, config):
 
 
 if __name__ == '__main__':
+    load_dotenv()
+
     client = authenticate()
     album = None
     dirname = 'images'
