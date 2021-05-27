@@ -6,8 +6,7 @@ def get_processing_image(dirname, images, image_width, image_height):
     for img in images:
         if not img.endswith(('.jpg', '.png')):
             continue
-        split_filename = os.path.splitext(img)
-        filename, extension = split_filename
+        filename, extension = os.path.splitext(img)
         image = Image.open(os.path.join(dirname, img))
         image.thumbnail((image_width, image_height))
         image.save(f'{os.path.join(dirname, filename)}.jpg', format='JPEG')

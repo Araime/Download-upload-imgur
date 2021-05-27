@@ -38,8 +38,7 @@ if __name__ == '__main__':
 
     for image in os.listdir(dirname):
         if image.endswith(('.jpg', '.png')):
-            name_for_split = os.path.splitext(image)
-            filename = name_for_split
+            filename, extension = os.path.splitext(image)
             image_path = os.path.join(dirname, image)
             config = {
                 'album': album,
