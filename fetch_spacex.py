@@ -14,7 +14,6 @@ def fetch_spacex_launch(launch_number, directory):
         response.raise_for_status()
         with open(f'{directory}spacex{image_number}.jpg', 'wb') as file:
             file.write(response.content)
-            print(f'Image spacex{image_number}.jpg downloaded')
 
 
 if __name__ == '__main__':

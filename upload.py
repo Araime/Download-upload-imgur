@@ -21,10 +21,7 @@ def authenticate(client_id, client_secret):
 
 
 def upload_image(client, image_path, config):
-    print('Uploading image... ')
     image = client.upload_from_path(image_path, config=config, anon=False)
-    print('Done')
-    print()
 
     return image
 
@@ -51,5 +48,3 @@ if __name__ == '__main__':
                 'description': 'Photo from internet {0}'.format(datetime.now())
             }
             image = upload_image(client, image_path, config)
-            print('Image was posted!')
-            print(f'You can find it here: {image["link"]}')
