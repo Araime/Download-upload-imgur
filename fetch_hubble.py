@@ -4,6 +4,13 @@ import requests
 from urllib.parse import urlsplit, unquote_plus
 
 
+def get_collection(hubble_url):
+    response = requests.get(hubble_url, verify=False)
+    response.raise_for_status()
+    collection = response.json()
+    return collection
+
+
 def get_file_extension(image_link):
     splitted_url = urlsplit(image_link)
     absolute_file_path = splitted_url.path
@@ -32,9 +39,8 @@ if __name__ == '__main__':
     directory = f'{os.getcwd()}/images/'
     os.makedirs(directory, exist_ok=True)
 
-    response = requests.get(hubble_url, verify=False)
-    response.raise_for_status()
-    collection = response.json()
+    collection = get_collection(hubble_url)
+
     for image in collection:
         image_id = image['id']
         ready_url = f'https://hubblesite.org/api/v3/image/{image_id}'
