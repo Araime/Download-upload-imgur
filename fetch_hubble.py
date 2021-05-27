@@ -20,7 +20,7 @@ def get_file_extension(image_link):
     return file_extension
 
 
-def fetch_hubble_images(image_link, directory, image_id, extension):
+def fetch_hubble_image(image_link, directory, image_id, extension):
     url = f'https:{image_link}'
     response_image = requests.get(url, verify=False)
     response_image.raise_for_status()
