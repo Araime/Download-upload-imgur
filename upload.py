@@ -4,11 +4,8 @@ from dotenv import load_dotenv
 from imgurpython import ImgurClient
 
 
-def authenticate():
-    client_id = os.getenv('CLIENT_ID')
-    client_secret = os.getenv('CLIENT_SECRET')
+def authenticate(client_id, client_secret):
     client = ImgurClient(client_id, client_secret)
-
     authorization_url = client.get_auth_url('pin')
     print(f'Go to the following URL: {authorization_url}')
 
@@ -35,7 +32,10 @@ def upload_image(client, image_path, config):
 if __name__ == '__main__':
     load_dotenv()
 
-    client = authenticate()
+    client_id = os.getenv('CLIENT_ID')
+    client_secret = os.getenv('CLIENT_SECRET')
+    client = authenticate(client_id, client_secret)
+
     album = None
     dirname = 'images'
 
