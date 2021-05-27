@@ -9,12 +9,12 @@ def fetch_spacex_launch(launch_number, directory):
     response.raise_for_status()
     launch = response.json()
     photo_from_launch = launch['links']['flickr_images']
-    for image_number, image_url in enumerate(photo_from_launch):
+    for image_number, image_url in enumerate(photo_from_launch, start=1):
         response = requests.get(image_url)
         response.raise_for_status()
-        with open(f'{directory}spacex{image_number + 1}.jpg', 'wb') as file:
+        with open(f'{directory}spacex{image_number}.jpg', 'wb') as file:
             file.write(response.content)
-            print(f'Image spacex{image_number + 1}.jpg downloaded')
+            print(f'Image spacex{image_number}.jpg downloaded')
 
 
 if __name__ == '__main__':
