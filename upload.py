@@ -39,7 +39,7 @@ if __name__ == '__main__':
     for image in os.listdir(dirname):
         if image.endswith(('.jpg', '.png')):
             name_for_split = os.path.splitext(image)
-            filename, extension = name_for_split
+            filename = name_for_split
             image_path = os.path.join(dirname, image)
             config = {
                 'album': album,
@@ -47,4 +47,5 @@ if __name__ == '__main__':
                 'title': filename,
                 'description': 'Photo from internet {0}'.format(datetime.now())
             }
+            print(config)
             image = upload_image(client, image_path, config)
