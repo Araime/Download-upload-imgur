@@ -12,7 +12,7 @@ if __name__ == '__main__':
         split_filename = os.path.splitext(img)
         filename, extension = split_filename
         image = Image.open(os.path.join(dirname, img))
-        compressed_image = image.thumbnail((1080, 1080))
-        compressed_image.save(f'{os.path.join(dirname, filename)}.jpg', format='JPEG')
+        image.thumbnail((1080, 1080))
+        image.save(f'{os.path.join(dirname, filename)}.jpg', format='JPEG')
         if not img.endswith('.jpg'):
             os.remove(os.path.join(dirname, img))
