@@ -20,12 +20,6 @@ def authenticate(client_id, client_secret):
     return client
 
 
-def upload_image(client, image_path, config):
-    image = client.upload_from_path(image_path, config=config, anon=False)
-
-    return image
-
-
 if __name__ == '__main__':
     load_dotenv()
 
@@ -47,4 +41,4 @@ if __name__ == '__main__':
                 'description': 'Photo from internet {0}'.format(datetime.now())
             }
             print(config)
-            image = upload_image(client, image_path, config)
+            image = client.upload_from_path(image_path, config=config, anon=False)
