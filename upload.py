@@ -23,8 +23,8 @@ def authenticate(client_id, client_secret):
 if __name__ == '__main__':
     load_dotenv()
 
-    client_id = os.getenv('CLIENT_ID')
-    client_secret = os.getenv('CLIENT_SECRET')
+    client_id = os.getenv('IMGUR_CLIENT_ID')
+    client_secret = os.getenv('IMGUR_CLIENT_SECRET')
     client = authenticate(client_id, client_secret)
 
     album = None
