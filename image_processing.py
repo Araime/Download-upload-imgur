@@ -12,7 +12,7 @@ def processing_images(dirname, images, image_width, image_height):
         image.save(f'{os.path.join(dirname, filename)}.jpg', format='JPEG')
 
 
-def deleting_unnecessary_images(dirname, images):
+def delete_unnecessary_images(dirname, images):
     for img in images:
         if not img.endswith('.jpg'):
             os.remove(os.path.join(dirname, img))
@@ -25,4 +25,4 @@ if __name__ == '__main__':
     image_height = 1080
 
     processing_images(dirname, images, image_width, image_height)
-    deleting_unnecessary_images(dirname, images)
+    delete_unnecessary_images(dirname, images)
