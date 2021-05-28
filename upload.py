@@ -40,5 +40,4 @@ if __name__ == '__main__':
                 'title': filename,
                 'description': 'Photo from internet {0}'.format(datetime.now())
             }
-            print(config)
             image = client.upload_from_path(image_path, config=config, anon=False)
