@@ -2,7 +2,7 @@ import os
 from PIL import Image
 
 
-def prepare_the_photos(dirname, images, image_width, image_height):
+def prepare_the_images(dirname, images, image_width, image_height):
     for img in images:
         if not img.endswith(('.jpg', '.png')):
             continue
@@ -24,5 +24,5 @@ if __name__ == '__main__':
     image_width = 1080
     image_height = 1080
 
-    prepare_the_photos(dirname, images, image_width, image_height)
+    prepare_the_images(dirname, images, image_width, image_height)
     delete_unnecessary_images(dirname, images)
