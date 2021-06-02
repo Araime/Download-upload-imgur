@@ -1,8 +1,8 @@
 # Download-upload-imgur
 
 Консольное приложение для загрузки изображений с API веб-сервисов [Spacex](https://documenter.getpostman.com/view/2025350/RWaEzAiG#bc65ba60-decf-4289-bb04-4ca9df01b9c1) 
-и [Hubble](http://hubblesite.org/api/documentation), их последующей обработки 
-и загрузки на сервис [imgur](https://imgur.com/).
+, [Hubble](http://hubblesite.org/api/documentation), [NASA](https://grantwinney.com/what-is-nasa-api/),
+их последующей обработки и загрузки на сервис [imgur](https://imgur.com/).
 
 ### Как установить?
 
@@ -74,9 +74,46 @@ IMGUR_CLIENT_ID=Ваш client-id
 IMGUR_CLIENT_SECRET=Ваш client-secret
 ```
 
-### Использование
+### NASA API
 
-#### Spacex API
+Программа настроено на скачивание "фото дня"  (ptoto of the day) с сервера NASA.
+Для использования скрипта `fetch_nasa.py` необходимо заполнить простую форму на 
+сайте [api.nasa.gov](https://api.nasa.gov/index.html#apply-for-an-api-key). После
+заполнения формы ключ приходит почти мгновенно:  
+<a href="https://ibb.co/KVL6S9Z"><img src="https://i.ibb.co/kq9Kvhn/8.png" alt="8" border="0"></a>
+
+Копируем полученный ключ в файл `.env` в корне каталога, если нет такого файла, 
+создаём его:
+```python
+NASA_API_KEY=Ваш API-key
+```
+При запуске скрипт принимает 4 необязательных аргумента:
+  1. `-d` или `--date` - Опциональный аргумент для загрузки по дате гггг-мм-дд
+  1. `-s` или `--several` - Опциональный аргумент для загрузки нескольких фото
+  1. `-sd` или `--start_date` - Опциональный аргумент, начальная дата гггг-мм-дд
+  1. `-ed` или `--end_date` - Опциональный аргумент, конечная дата гггг-мм-дд
+
+#### Примеры использования:
+
+1. Запуск без аргументов:
+```python
+python fetch_nasa.py
+```
+Программа скачает "фото дня" за текущую дату.
+
+2. Скачивание "фото дня" за выборочную дату:
+```python
+python fetch_nasa.py -d 2020-09-17
+```
+Программа скачает "фото дня" за указанную дату.
+3. Следующие 3 аргумента необязательные, но если указываем один из них, необходимо
+указать и остальные два.
+```python
+python fetch_nasa.py -s several sd 2021-06-07 ed 2021-06-13
+```
+Программа скачает все "фото дня" за указанный промежуток.
+
+### Spacex API
 
 Чтобы скачать фотографии с запуска Spacex, необходимо запустить скрипт 
 fetch_spacex.py и в качестве аргумента передать номер запуска. Если не передать
@@ -97,7 +134,7 @@ python fetch_spacex.py 15
 
 Подробнее о [Spacex API](https://documenter.getpostman.com/view/2025350/RWaEzAiG#bc65ba60-decf-4289-bb04-4ca9df01b9c1).
 
-#### Hubble API
+### Hubble API
 
 Скрипт fetch_hubble.py настроен на скачивание коллекций изображений. Красивые 
 изображения Hubble хранятся в коллекциях. Вот некоторые из них: “holiday_cards”, 
@@ -118,7 +155,7 @@ python fetch_hubble.py spacecraft
 
 Подробнее о [Hubble API](http://hubblesite.org/api/documentation).
 
-#### Обработка (по желанию)
+### Обработка (по желанию)
 
 С помощью скрипта image_processing.py можно все скачанные изображения в формате
 .jpg и .png, в папке images пересохранить в формате jpg и сжать, сохраняя 
@@ -129,7 +166,7 @@ python fetch_hubble.py spacecraft
 python image_processing.py
 ```
 
-#### Загрузка на Imgur
+### Загрузка на Imgur
 
 Для загрузки всех изображений в папке images, необходимо запустить скрипт
 upload.py.
