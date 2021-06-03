@@ -5,8 +5,8 @@ from dotenv import load_dotenv
 from urllib.parse import urlsplit, unquote_plus
 
 
-def get_photo_link(url):
-    response = requests.get(url)
+def get_photo_link(url, payload):
+    response = requests.get(url, params=payload)
     response.raise_for_status()
     photo_of_the_day = response.json()
     photo_link = photo_of_the_day['hdurl']
@@ -29,9 +29,9 @@ def fetch_photo_of_the_day(directory, photo_link, filename, file_extension):
         file.write(response.content)
 
 
-def get_sheet_with_photo_links(url):
+def get_sheet_with_photo_links(url, payload):
     sheet_with_links = []
-    response = requests.get(url)
+    response = requests.get(url, params=payload)
     response.raise_for_status()
     sheet_with_dataset = response.json()
     for dataset in sheet_with_dataset:
@@ -63,16 +63,21 @@ if __name__ == '__main__':
     directory = f'{os.getcwd()}/images/'
     os.makedirs(directory, exist_ok=True)
 
-    base_url = f'https://api.nasa.gov/planetary/apod?api_key={api_key}&'
+    url = f'https://api.nasa.gov/planetary/apod?api_key={api_key}'
 
     if specifying_the_quantity.find('several') != -1:
-        url = f'{base_url}start_date={photos_start_date}&end_date={photos_end_date}'
-        sheet_with_photos_links = get_sheet_with_photo_links(url)
+        payload = {
+            'start_date': photos_start_date,
+            'end_date': photos_end_date
+        }
+        sheet_with_photos_links = get_sheet_with_photo_links(url, payload)
         for photo_link in sheet_with_photos_links:
             filename, file_extension = get_filename_and_extension(photo_link)
             fetch_photo_of_the_day(directory, photo_link, filename, file_extension)
     else:
-        url = f'{base_url}date={photo_date}'
-        photo_link = get_photo_link(url)
+        payload = {
+            'date': photo_date
+        }
+        photo_link = get_photo_link(url, payload)
         filename, file_extension = get_filename_and_extension(photo_link)
         fetch_photo_of_the_day(directory, photo_link, filename, file_extension)
