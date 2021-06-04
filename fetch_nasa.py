@@ -9,7 +9,10 @@ def get_photo_link(url, payload):
     response = requests.get(url, params=payload)
     response.raise_for_status()
     photo_of_the_day = response.json()
-    photo_link = photo_of_the_day['url']
+    if 'hdurl' in photo_of_the_day:
+        photo_link = photo_of_the_day['hdurl']
+    else:
+        photo_link = photo_of_the_day['url']
     return photo_link
 
 
@@ -35,7 +38,10 @@ def get_sheet_with_photo_links(url, payload):
     response.raise_for_status()
     sheet_with_dataset = response.json()
     for dataset in sheet_with_dataset:
-        photo_link = dataset['url']
+        if 'hdurl' in dataset:
+            photo_link = dataset['hdurl']
+        else:
+            photo_link = dataset['url']
         sheet_with_links.append(photo_link)
     return sheet_with_links
 
